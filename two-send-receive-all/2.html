@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="http://localhost:2183/socket.io/socket.io.js"></script>
+
+</head>
+<body>
+  <input type="text" id="t">
+  <button id="b">发送</button>
+  <ul id="ul">
+    
+  </ul>
+</body>
+
+<script>
+    onload= () => {
+      var conn = io.connect('ws://localhost:2183');
+      b.onclick = x => {
+        conn.emit('msg', t.value);
+      }
+      conn.on('msg', (str) => {
+        // console.log(str);
+        var oLi = document.createElement('li');
+        oLi.innerHTML = str;
+        ul.appendChild(oLi);
+      })
+    }
+    
+  </script>
+</html>
